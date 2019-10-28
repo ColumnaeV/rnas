@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Standard -->
+    <script type="text/javascript">
+        var host = "clsnguyen.com";
+        if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    <link rel="canonical" href="https://clsnguyen.com">
+    <title>RNA Sequencer</title>
+    <link rel="shortcut icon" href="assets/img/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#6bc4cf">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="assets/css/standard.css">
+    
+    <!-- Scripts -->
+    <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <script src="assets/js/jquery.easing.1.3.js"></script>
+    <script src="assets/js/standard.js"></script>
+
+    <!-- Preview -->
+    <meta name="description" content="A lightweight web-based application to pair amino acids to their respective codons of RNA.">
+
+    <!-- Mobile Preview -->
+    <meta property="og:title" content="RNA Sequencer" />
+    <meta property="og:image" content="assets/img/preview.jpg" />
+    <meta property="og:description" content="A lightweight web-based application to pair amino acids to their respective codons of RNA." />
+
+</head>
+<body>
+<!-- Loading Container -->
+<div id="load">
+    <div id="loading-container">
+        <center>
+            <img id="loading-image" alt="Loading Image" src="assets/img/logo.png">
+        <!-- Loading Animation -->
+            <div class="loading-bar">
+                <div class="move-bar"></div>
+            </div>
+        </center>
+    </div>
+</div>
+
+<!-- Nav to Top -->
+<div class="back-to-top">
+    <b>&#8673;</b>
+</div>
+   
+<!-- Main Body -->
+<div id="body-container">
+    <!-- Cover -->
+    <div class="cover-wrapper">
+        <!-- Title -->
+        <div class="cover-title">
+            <div class="cover-t-container">
+                <h1>RNA Sequencer</h1>
+                <h2>A Genetics Lab Utility</h2>
+            </div>
+        </div>
+
+        <!-- Cover Image -->
+        <div class="cover-image" style="background-image: url(assets/img/cover.jpg)"></div>
+
+        <!-- Down Arrow -->
+        <div id="down-arrow-container">
+            <u class="down"></u>
+        </div>
+    </div>
+
+    <!-- PAGE -->
+    <div class="section">
+        <div class="flex-c-wrapper">
+            <div class="flex-c-wrapper">
+                <div class="flex-c-wrapper">
+                    <div class="input-wrapper">
+                        <!-- Input Field -->
+                        <div class="split-content input">
+                            <div class="rna-input-wrapper">
+                                <textarea spellcheck="false" wrap="off" rows="1" data-limit-rows="true" maxlength="3900" id="rna-input" placeholder="Input RNA Sequence"></textarea>
+                            </div>
+                        </div>
+                        <!-- Run Button -->
+                        <div class="split-content run">
+                                <div class="button init-button">
+                                    Run Sequence
+                                </div>
+                            </div>
+                        <!-- Toggle Stop Codons -->
+                        <div class="split-content toggle-stop">
+                            <div class="button pass-stops">
+                                Stopping At First Stop Codon
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-c-wrapper">
+                        <table id="tblData" class="codon-table"></table>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-c-wrapper">
+                
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section-break"></div>
+
+    <!-- Footer -->
+    <div class="footer-wrapper">
+        <img class="footer-img" alt="Footer Image" src="assets/img/logo.png">
+        <p class="footer-text">RNA Sequencer<br><span class="footer-dash">&mdash;</span> 2019 &copy; clsnguyen <span class="footer-dash">&mdash;</span><br>Built from scratch.</p>
+    </div>
+</div>  
+<!-- End of Body -->     
+    
+</body>
+</html>
