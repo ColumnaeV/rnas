@@ -88,7 +88,7 @@ $(document).ready(function (){
 
     // Tests if string is valid for RNA testing. //
     $("div.init-button").click(function (){
-        $("table.codon-table").empty();
+        $("table.rna-table").empty();
         // Variable Settings //
         var rna = $("textarea#rna-input").val();
         var a = new Array();
@@ -102,10 +102,42 @@ $(document).ready(function (){
     
         const map1 = a.map(x => x.length);
         var lastArrEle = map1.slice(-1);
-        // console.log(a);
-        // console.log(lastArrEle);
-        // console.log(codonCount);
+        console.log(a);
+        console.log(lastArrEle);
+        console.log(codonCount);
+        console.log(rnaString);
         
+        // DNA array //
+        var rnaToDnaInt = {'A':'t','C':'g','G':'c','U':'a'};
+        var dnaIntToDnaTemp = {'a':'A','c':'C','g':'G','t':'T'};
+        var rnaToDnaComp = {'U':'T'};
+
+        // RNA to Temp. DNA //
+        var dnaInt = rnaString;
+        dnaInt = dnaInt.replace(/[ACGU]/g, m => rnaToDnaInt[m]);
+        var dnaTemp = dnaInt;
+        dnaTemp = dnaTemp.replace(/[acgt]/g, m => dnaIntToDnaTemp[m]);
+        // console.log(dnaTemp);
+        var dnaTempArray = new Array();
+        do {
+	        dnaTempArray.push(dnaTemp.substring(0, i));
+        } while((dnaTemp = dnaTemp.substring(i, dnaTemp.length)) != "");
+        console.log(dnaTempArray);
+
+        //RNA to Comp. DNA //
+        var dnaComp = rnaString;
+        dnaComp = dnaComp.replace(/[U]/g, m => rnaToDnaComp[m]);
+        // console.log(dnaComp);
+        var dnaCompArray = new Array();
+        do {
+	        dnaCompArray.push(dnaComp.substring(0, i));
+        } while((dnaComp = dnaComp.substring(i, dnaComp.length)) != "");
+        console.log(dnaCompArray);
+
+
+
+
+
         // Errors //
         var error91 = 1;
         var error97 = 1;
@@ -183,7 +215,7 @@ $(document).ready(function (){
                 }, 1000);
                 setTimeout(function () {
                     $('html, body').stop(true, false).animate({
-                        scrollTop: $("table.codon-table").offset().top
+                        scrollTop: $("table.rna-table").offset().top
                     }, 800, 'easeInOutExpo');
                 }, 1100);
             }
@@ -191,140 +223,140 @@ $(document).ready(function (){
             function runCodon() {
                 // Alanine
                 if(a[codonPosCode] == "GCU" || a[codonPosCode] == "GCC" || a[codonPosCode] == "GCA" || a[codonPosCode] == "GCG") {
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Ala / A</td><td>Alanine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Ala / A</td><td>Alanine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Arginine
                 if(a[codonPosCode] == "CGU" || a[codonPosCode] == "CGC" || a[codonPosCode] == "CGA" || a[codonPosCode] == "CGG" || a[codonPosCode] == "AGA" || a[codonPosCode] == "AGG") {
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Arg / R</td><td>Arginine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Arg / R</td><td>Arginine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Asparagine
                 if(a[codonPosCode] == "AAU" || a[codonPosCode] == "AAC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Asn / N</td><td>Asparagine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Asn / N</td><td>Asparagine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 //  Aspartic Acid
                 if(a[codonPosCode] == "GAU" || a[codonPosCode] == "GAC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Asp / D</td><td>Aspartic Acid</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Asp / D</td><td>Aspartic Acid</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Cysteine
                 if(a[codonPosCode] == "UGU" || a[codonPosCode] == "UGC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Cys / C</td><td>Cysteine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Cys / C</td><td>Cysteine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Glutamine
                 if(a[codonPosCode] == "CAA" || a[codonPosCode] == "CAG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Gln / Q</td><td>Glutamine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Gln / Q</td><td>Glutamine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Glutamic Acid
                 if(a[codonPosCode] == "GAA" || a[codonPosCode] == "GAG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Glu / E</td><td>Glutamic Acid</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Glu / E</td><td>Glutamic Acid</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Glycine
                 if(a[codonPosCode] == "GGU" || a[codonPosCode] == "GGC" || a[codonPosCode] == "GGA" || a[codonPosCode] == "GGG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Gly / G</td><td>Glycine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Gly / G</td><td>Glycine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Histidine
                 if(a[codonPosCode] == "CAU" || a[codonPosCode] == "CAC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>His / H</td><td>Histidine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>His / H</td><td>Histidine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Isoleucine
                 if(a[codonPosCode] == "AUU" || a[codonPosCode] == "AUC" || a[codonPosCode] == "AUA") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Ile / I</td><td>Isoleucine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Ile / I</td><td>Isoleucine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Leucine
                 if(a[codonPosCode] == "UUA" || a[codonPosCode] == "UUG" || a[codonPosCode] == "CUU" || a[codonPosCode] == "CUC" || a[codonPosCode] == "CUA" || a[codonPosCode] == "CUG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Leu / L</td><td>Leucine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Leu / L</td><td>Leucine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Lysine
                 if(a[codonPosCode] == "AAA" || a[codonPosCode] == "AAG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Lys / K</td><td>Lysine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Lys / K</td><td>Lysine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Methionine
                 if(a[codonPosCode] == "AUG") { 
-                    $("table.codon-table").append("<tr class='start-codon'><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Met / M</td><td>Methionine (START)</td></tr>");
+                    $("table.rna-table").append("<tr class='start-codon'><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Met / M</td><td>Methionine (START)</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Phenylalanine
                 if(a[codonPosCode] == "UUU" || a[codonPosCode] == "UUC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Phe / F</td><td>Phenylalanine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Phe / F</td><td>Phenylalanine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Proline
                 if(a[codonPosCode] == "CCU" || a[codonPosCode] == "CCC" || a[codonPosCode] == "CCA" || a[codonPosCode] == "CCG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Pro / P</td><td>Proline</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Pro / P</td><td>Proline</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Serine
                 if(a[codonPosCode] == "UCU" || a[codonPosCode] == "UCC" || a[codonPosCode] == "UCA" || a[codonPosCode] == "UCG" || a[codonPosCode] == "AGU" || a[codonPosCode] == "AGC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Ser / S</td><td>Serine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Ser / S</td><td>Serine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Threonine
                 if(a[codonPosCode] == "ACU" || a[codonPosCode] == "ACC" || a[codonPosCode] == "ACA" || a[codonPosCode] == "ACG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Thr / T</td><td>Threonine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Thr / T</td><td>Threonine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Tryptophan
                 if(a[codonPosCode] == "UGG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Trp / W</td><td>Tryptophan</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Trp / W</td><td>Tryptophan</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Tyrosine
                 if(a[codonPosCode] == "UAU" || a[codonPosCode] == "UAC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Tyr / Y</td><td>Tyrosine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Tyr / Y</td><td>Tyrosine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
                 }
                 // Valine
                 if(a[codonPosCode] == "GUU" || a[codonPosCode] == "GUC" || a[codonPosCode] == "GUA" || a[codonPosCode] == "GUG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Val / V</td><td>Valine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Val / V</td><td>Valine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequence();
@@ -333,7 +365,7 @@ $(document).ready(function (){
             // STOP CODONS //
                 // Amber
                 if(a[codonPosCode] == "UAG") { 
-                    $("table.codon-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Amber (STOP)</td></tr>");
+                    $("table.rna-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Amber (STOP)</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     stopCodCounter = stopCodCounter + 1;
@@ -341,7 +373,7 @@ $(document).ready(function (){
                 }
                 // Ochre
                 if(a[codonPosCode] == "UAA") { 
-                    $("table.codon-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Ochre (STOP)</td></tr>");
+                    $("table.rna-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Ochre (STOP)</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     stopCodCounter = stopCodCounter + 1;
@@ -349,7 +381,7 @@ $(document).ready(function (){
                 }
                 // Opal
                 if(a[codonPosCode] == "UGA") { 
-                    $("table.codon-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Opal (STOP)</td></tr>");
+                    $("table.rna-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Opal (STOP)</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     stopCodCounter = stopCodCounter + 1;
@@ -370,140 +402,140 @@ $(document).ready(function (){
             function runCodonFS() {
                 // Alanine
                 if(a[codonPosCode] == "GCU" || a[codonPosCode] == "GCC" || a[codonPosCode] == "GCA" || a[codonPosCode] == "GCG") {
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Ala / A</td><td>Alanine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Ala / A</td><td>Alanine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Arginine
                 if(a[codonPosCode] == "CGU" || a[codonPosCode] == "CGC" || a[codonPosCode] == "CGA" || a[codonPosCode] == "CGG" || a[codonPosCode] == "AGA" || a[codonPosCode] == "AGG") {
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Arg / R</td><td>Arginine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Arg / R</td><td>Arginine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Asparagine
                 if(a[codonPosCode] == "AAU" || a[codonPosCode] == "AAC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Asn / N</td><td>Asparagine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Asn / N</td><td>Asparagine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 //  Aspartic Acid
                 if(a[codonPosCode] == "GAU" || a[codonPosCode] == "GAC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Asp / D</td><td>Aspartic Acid</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Asp / D</td><td>Aspartic Acid</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Cysteine
                 if(a[codonPosCode] == "UGU" || a[codonPosCode] == "UGC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Cys / C</td><td>Cysteine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Cys / C</td><td>Cysteine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Glutamine
                 if(a[codonPosCode] == "CAA" || a[codonPosCode] == "CAG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Gln / Q</td><td>Glutamine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Gln / Q</td><td>Glutamine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Glutamic Acid
                 if(a[codonPosCode] == "GAA" || a[codonPosCode] == "GAG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Glu / E</td><td>Glutamic Acid</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Glu / E</td><td>Glutamic Acid</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Glycine
                 if(a[codonPosCode] == "GGU" || a[codonPosCode] == "GGC" || a[codonPosCode] == "GGA" || a[codonPosCode] == "GGG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Gly / G</td><td>Glycine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Gly / G</td><td>Glycine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Histidine
                 if(a[codonPosCode] == "CAU" || a[codonPosCode] == "CAC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>His / H</td><td>Histidine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>His / H</td><td>Histidine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Isoleucine
                 if(a[codonPosCode] == "AUU" || a[codonPosCode] == "AUC" || a[codonPosCode] == "AUA") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Ile / I</td><td>Isoleucine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Ile / I</td><td>Isoleucine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Leucine
                 if(a[codonPosCode] == "UUA" || a[codonPosCode] == "UUG" || a[codonPosCode] == "CUU" || a[codonPosCode] == "CUC" || a[codonPosCode] == "CUA" || a[codonPosCode] == "CUG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Leu / L</td><td>Leucine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Leu / L</td><td>Leucine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Lysine
                 if(a[codonPosCode] == "AAA" || a[codonPosCode] == "AAG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Lys / K</td><td>Lysine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Lys / K</td><td>Lysine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Methionine
                 if(a[codonPosCode] == "AUG") { 
-                    $("table.codon-table").append("<tr class='start-codon'><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Met / M</td><td>Methionine (START)</td></tr>");
+                    $("table.rna-table").append("<tr class='start-codon'><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Met / M</td><td>Methionine (START)</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Phenylalanine
                 if(a[codonPosCode] == "UUU" || a[codonPosCode] == "UUC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Phe / F</td><td>Phenylalanine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Phe / F</td><td>Phenylalanine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Proline
                 if(a[codonPosCode] == "CCU" || a[codonPosCode] == "CCC" || a[codonPosCode] == "CCA" || a[codonPosCode] == "CCG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Pro / P</td><td>Proline</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Pro / P</td><td>Proline</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Serine
                 if(a[codonPosCode] == "UCU" || a[codonPosCode] == "UCC" || a[codonPosCode] == "UCA" || a[codonPosCode] == "UCG" || a[codonPosCode] == "AGU" || a[codonPosCode] == "AGC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Ser / S</td><td>Serine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Ser / S</td><td>Serine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Threonine
                 if(a[codonPosCode] == "ACU" || a[codonPosCode] == "ACC" || a[codonPosCode] == "ACA" || a[codonPosCode] == "ACG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Thr / T</td><td>Threonine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Thr / T</td><td>Threonine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Tryptophan
                 if(a[codonPosCode] == "UGG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Trp / W</td><td>Tryptophan</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Trp / W</td><td>Tryptophan</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Tyrosine
                 if(a[codonPosCode] == "UAU" || a[codonPosCode] == "UAC") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Tyr / Y</td><td>Tyrosine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Tyr / Y</td><td>Tyrosine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
                 }
                 // Valine
                 if(a[codonPosCode] == "GUU" || a[codonPosCode] == "GUC" || a[codonPosCode] == "GUA" || a[codonPosCode] == "GUG") { 
-                    $("table.codon-table").append("<tr><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td>Val / V</td><td>Valine</td></tr>");
+                    $("table.rna-table").append("<tr><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td>Val / V</td><td>Valine</td></tr>");
                     codonPos = codonPos + 1;
                     codonPosCode = codonPosCode + 1;
                     runSequenceFS();
@@ -513,7 +545,7 @@ $(document).ready(function (){
             function completeSequenceFS() {
                 // Amber
                 if(a[codonPosCode] == "UAG") { 
-                    $("table.codon-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Amber (STOP)</td></tr>");
+                    $("table.rna-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Amber (STOP)</td></tr>");
                     setTimeout(function () {
                         $("div.init-button").html("Complete!");
                     }, 500);
@@ -523,13 +555,13 @@ $(document).ready(function (){
                     }, 1000);
                     setTimeout(function () {
                         $('html, body').stop(true, false).animate({
-                            scrollTop: $("table.codon-table").offset().top
+                            scrollTop: $("table.rna-table").offset().top
                         }, 800, 'easeInOutExpo');
                     }, 1100);
                 }
                 // Ochre
                 if(a[codonPosCode] == "UAA") { 
-                    $("table.codon-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Ochre (STOP)</td></tr>");
+                    $("table.rna-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Ochre (STOP)</td></tr>");
                     setTimeout(function () {
                         $("div.init-button").html("Complete!");
                     }, 500);
@@ -539,13 +571,13 @@ $(document).ready(function (){
                     }, 1000);
                     setTimeout(function () {
                         $('html, body').stop(true, false).animate({
-                            scrollTop: $("table.codon-table").offset().top
+                            scrollTop: $("table.rna-table").offset().top
                         }, 800, 'easeInOutExpo');
                     }, 1100);
                 }
                 // Opal
                 if(a[codonPosCode] == "UGA") { 
-                    $("table.codon-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Opal (STOP)</td></tr>");
+                    $("table.rna-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Opal (STOP)</td></tr>");
                     setTimeout(function () {
                         $("div.init-button").html("Complete!");
                     }, 500);
@@ -555,7 +587,7 @@ $(document).ready(function (){
                     }, 1000);
                     setTimeout(function () {
                         $('html, body').stop(true, false).animate({
-                            scrollTop: $("table.codon-table").offset().top
+                            scrollTop: $("table.rna-table").offset().top
                         }, 800, 'easeInOutExpo');
                     }, 1100);
                     
@@ -570,7 +602,7 @@ $(document).ready(function (){
                     }, 1000);
                     setTimeout(function () {
                         $('html, body').stop(true, false).animate({
-                            scrollTop: $("table.codon-table").offset().top
+                            scrollTop: $("table.rna-table").offset().top
                         }, 800, 'easeInOutExpo');
                     }, 1100);
                 }
@@ -580,7 +612,7 @@ $(document).ready(function (){
         if(error91 == 1 || error97 == 1 || error103 == 1 || error110 == 1) {
             alert("RNA Sequencer:\n\nAmino acid pairing was aborted due to the following errors:" + displayError91 + displayError97 + displayError103 + displayError110);
         } else {
-            $("table.codon-table").empty().append("<tr><th>Position</th><th>Codon</th><th>Abbr.</th><th>Amino Acid</th></tr>");
+            $("table.rna-table").empty().append("<tr><th>Position</th><th class='dna-label'>Temp. DNA</th><th class='dna-label'>Comp. DNA</th><th>Codon</th><th>Abbr.</th><th>AA</th></tr>");
             $("div.init-button").html("Sequencing...").addClass('init-button-clicked');
 
             // Start pairing codons.
@@ -589,7 +621,7 @@ $(document).ready(function (){
 
         // STOP Alerts //
         // function stopAmber() {
-        //     $("table.codon-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Amber (STOP)</td></tr>");
+        //     $("table.rna-table").append("<tr class='stop-codon'><td>"+codonPos+"</td><td class='dna-codon'>"+dnaTempArray[codonPosCode]+"</td><td class='dna-codon'>"+dnaCompArray[codonPosCode]+"</td><td>"+a[codonPosCode]+"</td><td></td><td>Amber (STOP)</td></tr>");
         // }
         // function stopOchre() {
         //     alert("RNA Sequencer: Complete.\n\n"+ codonPos + " of the " + codonCount + " detected codons were paired.\nAmino acid pairing stopped due to a stop codon.");
