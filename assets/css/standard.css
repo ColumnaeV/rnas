@@ -464,12 +464,12 @@ u {
 }
 
 table {
-    margin: 5em;
+    margin: 5em 0.2em;
     text-align: left;
     border-collapse: collapse;
 }
 
-th {
+.rna-table th {
     padding: 1em 5vw 1em 1em;
     color: var(--colour-1);
     font-family: "Font Text", Helvetica, Arial, sans-serif;
@@ -484,6 +484,11 @@ td {
     font-size: 1em;
 }
 
+.dna-label {
+    color: var(--start-codon);
+    border-bottom: 1px solid var(--start-codon);
+}
+
 .stop-codon {
     background-color: var(--stop-codon);
 }
@@ -493,7 +498,12 @@ td {
 }
 
 .stop-codon td, .start-codon td {
-    color: var(--colour-2);
+    color: var(--colour-2) !important;
+}
+
+td.dna-codon {
+    color: var(--colour-1);
+    font-weight: 700;
 }
 
 /* Footer */
@@ -947,7 +957,7 @@ table {
     width: 80vw;
 }
 
-th {
+.rna-table th {
     padding: 1em 5vw 1em 1em;
     color: var(--colour-1);
     font-family: "Font Text", Helvetica, Arial, sans-serif;
@@ -1430,11 +1440,11 @@ table {
     width: 92vw;
 }
 
-th {
+.rna-table th {
     padding: 1em 5vw 1em 1em;
     color: var(--colour-1);
     font-family: "Font Text", Helvetica, Arial, sans-serif;
-    font-size: 0.7em;
+    font-size: 0.6em;
     border-bottom: 1px solid var(--colour-1);
 }
 
@@ -1442,7 +1452,7 @@ td {
     padding: 1em 1em;
     color: var(--colour-4);
     font-family: "Font Text", Helvetica, Arial, sans-serif;
-    font-size: 0.7em;
+    font-size: 0.6em;
 }
 
 .stop-codon {
