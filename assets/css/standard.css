@@ -388,6 +388,7 @@ u {
 }
 
 .button {
+    text-align: center;
     width: inherit;
     padding: 1em;
     margin: 2em;
@@ -909,7 +910,7 @@ u {
 }
 
 .button:hover, .back-to-top:hover{
-    transform: translateY(-0.5em);
+    transform: translateY(0);
     box-shadow: 0 0.75em 0.75em rgba(107, 196, 207,0.25);
     cursor: pointer;
 }
@@ -1392,7 +1393,7 @@ u {
 }
 
 .button:hover, .back-to-top:hover{
-    transform: translateY(-0.5em);
+    transform: translateY(-0);
     box-shadow: 0 0.75em 0.75em rgba(107, 196, 207,0.25);
     cursor: pointer;
 }
