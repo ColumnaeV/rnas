@@ -85,27 +85,47 @@ $(document).ready(function (){
         }
     });
 
+    var orfVal = 1;
+    // ORF value //
+    $('div.orf-counter').click(function () {
+        orfVal = orfVal + 1;
+        if(orfVal <= 3) {
+            $('span.orf-value').text(orfVal);
+        } else {
+            orfVal = orfVal - 3;
+            $('span.orf-value').text(orfVal);
+        }
+    });
 
     // Tests if string is valid for RNA testing. //
     $("div.init-button").click(function (){
         $("table.rna-table").empty();
         // Variable Settings //
-        var rna = $("textarea#rna-input").val();
+        var rnaOri = $("textarea#rna-input").val();
+        var spliceVal = orfVal - 1;
+        // console.log(spliceVal);
+        var rnaLength = $("textarea#rna-input").val().length;
+        // console.log(rnaLength);
+        var rna = rnaOri.slice(spliceVal, rnaLength);
+        // console.log(rna);
+
+        // var rna = $("textarea#rna-input").val();
         var a = new Array();
         var i = 3;
         var codonCount = rna.length/3;
         var acceptable = /^[ACGU]+$/;
-        var rnaString =  document.getElementById("rna-input").value;
+        // var rnaString =  document.getElementById("rna-input").value;
+        var rnaString = rna;
         do {
 	        a.push(rna.substring(0, i));
         } while((rna = rna.substring(i, rna.length)) != "");
     
-        const map1 = a.map(x => x.length);
+        const map1 = a.map(rna => rna.length);
         var lastArrEle = map1.slice(-1);
-        console.log(a);
-        console.log(lastArrEle);
-        console.log(codonCount);
-        console.log(rnaString);
+        // console.log(a);
+        // console.log(lastArrEle);
+        // console.log(codonCount);
+        // console.log(rnaString);
         
         // DNA array //
         var rnaToDnaInt = {'A':'t','C':'g','G':'c','U':'a'};
@@ -122,7 +142,7 @@ $(document).ready(function (){
         do {
 	        dnaTempArray.push(dnaTemp.substring(0, i));
         } while((dnaTemp = dnaTemp.substring(i, dnaTemp.length)) != "");
-        console.log(dnaTempArray);
+        // console.log(dnaTempArray);
 
         //RNA to Comp. DNA //
         var dnaComp = rnaString;
@@ -132,7 +152,7 @@ $(document).ready(function (){
         do {
 	        dnaCompArray.push(dnaComp.substring(0, i));
         } while((dnaComp = dnaComp.substring(i, dnaComp.length)) != "");
-        console.log(dnaCompArray);
+        // console.log(dnaCompArray);
 
 
 
@@ -153,7 +173,7 @@ $(document).ready(function (){
             }
         // Fragmented codons
             if(lastArrEle % 3 !== 0 || lastArrEle == 0) {
-                displayError97 = "\n· Invalid base count in RNA sequence.";
+                displayError97 = "\n· Invalid base count in RNA sequence. " + lastArrEle + " Extra bases.";
             } else {
                 error97 = 0;
                 displayError97 = "";
